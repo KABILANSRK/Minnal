@@ -14,7 +14,7 @@ The Minimum Viable Product is focused on delivering a reliable, automated notifi
     -   [x] Identify and scrape data from a reliable, non-CAPTCHA source (`livechennai.com`).
     -   [x] Intelligently handle the two-level page structure (index page -> detail page).
     -   [x] Use `datetime` to be date-aware, finding schedules for the current or next day.
-    -   [x] Extract and clean the relevant text data (areas, times, dates).
+    -   [] Extract and clean the relevant text data (areas, times, dates).
 
 -   [ ] **V0.2: Personal Notification System**
     -   [ ] Integrate with the Telegram Bot API.
