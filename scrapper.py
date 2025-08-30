@@ -1,14 +1,35 @@
+import os
 import requests
 from bs4 import BeautifulSoup
 from datetime import date, timedelta
 from urllib.parse import urljoin
+
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
+
+def send_telegram_message(message: str):
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
+        print("Telegram bot token or chat ID not set in environment variables.")
+        return
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    payload = {
+        'chat_id': TELEGRAM_CHAT_ID,
+        'text': message,
+        'parse_mode': 'HTML'
+    }
+    try:
+        response = requests.post(url, data=payload)
+        if response.status_code != 200:
+            print(f"Failed to send message via Telegram: {response.text}")
+    except Exception as e:
+        print(f"Exception occurred while sending Telegram message: {e}")
 
 today = date.today()
 tomorrow = today + timedelta(days=1)
 today_str = today.strftime("%d-%m-%Y")
 tomorrow_str = tomorrow.strftime("%d-%m-%Y")
 
-print(f"I am searching for power cut news for '{today_str}' or '{tomorrow_str}'.")
+print(f"I am searching for power cut news for '{tomorrow_str}'.")
 
 index_url = "https://www.livechennai.com/powercut_schedule.asp"
 base_url = "https://www.livechennai.com/"
@@ -29,7 +50,7 @@ try:
     else:
         print(f"Failed to fetch data. Status code: {response.status_code}")
         exit(1)
-        
+
 except requests.RequestException as e:
     print(f"Error occurred while fetching data: {e}")
     exit(1)
@@ -77,6 +98,8 @@ if target_link:
             powercut_info = content_div.get_text(separator='\n').strip()
             print("\n--- POWER CUT SCHEDULE ---")
             print(powercut_info)
+            # Send power cut info to Telegram
+            send_telegram_message(f"<b>Power Cut Schedule:</b>\n{powercut_info}")
         else:
             print("Could not find the content div on the detail page.")
 

@@ -2,13 +2,13 @@
 
 # Development Plan: Chennai Power Alert System (Minnal)
 
-## 1. Project Overview 🎯
+## 1. Project Overview 
 
 The Chennai Power Alert System is a lightweight, automated service designed to solve a real-world problem: providing timely warnings about scheduled power cuts in Chennai. The system scrapes information from reliable online sources, processes it, and alerts users, helping them prepare for disruptions. This project aims to be a practical, useful tool and a demonstration of key software engineering skills, including web scraping, automation, and deployment.
 
 ---
 
-## 2. Core Features (MVP) 📋
+## 2. Core Features (MVP) 
 
 The Minimum Viable Product is focused on delivering a reliable, automated notification service.
 
@@ -34,7 +34,7 @@ The Minimum Viable Product is focused on delivering a reliable, automated notifi
 
 ---
 
-## 3. Technology Stack 🛠️
+## 3. Technology Stack 
 
 * **Language:** Python 3.x
 * **Core Libraries:** `requests`, `beautifulsoup4`
@@ -45,7 +45,7 @@ The Minimum Viable Product is focused on delivering a reliable, automated notifi
 
 ---
 
-## 4. Future Enhancements (V2.0 Ideas) 🚀
+## 4. Future Enhancements (V2.0 Ideas) 
 
 * **Area-specific subscriptions:** Allow users to subscribe to alerts only for their specific neighborhood.
 * **Multiple data sources:** Add redundancy by scraping more than one news source.
