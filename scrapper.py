@@ -40,30 +40,29 @@ if not news_content_wrapper:
     print("Could not find news content wrapper div on the page")
     exit(1)
 
-# Safely access table rows only if we found the wrapper
-table_rows = news_content_wrapper.find_all('tr')
+news_cards = news_content_wrapper.find_all('div', class_='card mb-3 bg-color')
 
-if not table_rows:
-    print("No table rows found in the news content")
+if not news_cards:
+    print("No news cards found in the news content")
     exit(1)
 
-for row in table_rows:
+for card in news_cards:
+    title_tag = card.find('h5', class_='card-title')
+    if title_tag:
+        link_tag = title_tag.find('a')
+        if link_tag:
+            link_text = link_tag.get_text()
 
-    link_tag = row.find('a')
+            is_power_cut_link = "power shutdown" in link_text.lower() or "power cut" in link_text.lower()
+            is_for_today = today_str in link_text
+            is_for_tomorrow = tomorrow_str in link_text
 
-    if link_tag:
-        link_text = link_tag.get_text()
+            if is_power_cut_link and (is_for_today or is_for_tomorrow):
+                print(f"Match Found! -> {link_text.strip()}")
 
-        is_power_cut_link = "power cut" in link_text.lower()
-        is_for_today = today_str in link_text
-        is_for_tomorrow = tomorrow_str in link_text
-
-        if is_power_cut_link and (is_for_today or is_for_tomorrow):
-            print(f"Match Found! -> {link_text.strip()}")
-
-            relative_path = link_tag['href']
-            target_link = urljoin(base_url, relative_path)
-            break
+                relative_path = link_tag['href']
+                target_link = urljoin(base_url, relative_path)
+                break
 
 if target_link:
     print(f"Proceeding to scrape details from: {target_link}")
