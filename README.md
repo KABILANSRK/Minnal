@@ -23,9 +23,9 @@ The Minimum Viable Product is focused on delivering a reliable, automated notifi
     -   [x] Send the scraped power cut information as a formatted message.
     -   [x] Implement basic error handling (e.g., send a "No schedule found" message).
 
--   [ ] **V0.3: Automation Engine**
-    -   [ ] Create a `requirements.txt` file for dependencies.
-    -   [ ] Set up a GitHub Actions workflow to run the scraper script on a daily schedule.
+-   [x] **V0.3: Automation Engine**
+    -   [x] Create a `requirements.txt` file for dependencies.
+    -   [x] Set up a GitHub Actions workflow to run the scraper script on a daily schedule.
 
 -   [ ] **V0.4: Public Web Interface**
     -   [ ] Build a minimal web application using Flask or FastAPI.
