@@ -18,10 +18,10 @@ The Minimum Viable Product is focused on delivering a reliable, automated notifi
     -   [x] Use `datetime` to be date-aware, finding schedules for the current or next day.
     -   [x] Extract and clean the relevant text data (areas, times, dates).
 
--   [ ] **V0.2: Personal Notification System**
-    -   [ ] Integrate with the Telegram Bot API.
-    -   [ ] Send the scraped power cut information as a formatted message.
-    -   [ ] Implement basic error handling (e.g., send a "No schedule found" message).
+-   [x] **V0.2: Personal Notification System**
+    -   [x] Integrate with the Telegram Bot API.
+    -   [x] Send the scraped power cut information as a formatted message.
+    -   [x] Implement basic error handling (e.g., send a "No schedule found" message).
 
 -   [ ] **V0.3: Automation Engine**
     -   [ ] Create a `requirements.txt` file for dependencies.

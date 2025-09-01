@@ -34,7 +34,7 @@ The Minimum Viable Product is focused on delivering a reliable, automated notifi
 
 ## 3. Technology Stack 🛠️
 
-* **Language:** Python 3.x
+* **Language:** Python 3.11.2
 * **Core Libraries:** `requests`, `beautifulsoup4`
 * **Web Framework:** Flask / FastAPI
 * **Automation:** GitHub Actions

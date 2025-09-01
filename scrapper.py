@@ -3,26 +3,31 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import date, timedelta
 from urllib.parse import urljoin
+from dotenv import load_dotenv
+load_dotenv()
 
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
-def send_telegram_message(message: str):
+def send_telegram_message(message):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
-        print("Telegram bot token or chat ID not set in environment variables.")
-        return
-    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+        print("Telegram credentials not found in environment variables")
+        return False
+    
+    telegram_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     payload = {
-        'chat_id': TELEGRAM_CHAT_ID,
-        'text': message,
-        'parse_mode': 'HTML'
+        "chat_id": TELEGRAM_CHAT_ID,
+        "text": message,
+        "parse_mode": "HTML"
     }
+    
     try:
-        response = requests.post(url, data=payload)
-        if response.status_code != 200:
-            print(f"Failed to send message via Telegram: {response.text}")
-    except Exception as e:
-        print(f"Exception occurred while sending Telegram message: {e}")
+        response = requests.post(telegram_url, json=payload)
+        response.raise_for_status()
+        return True
+    except requests.RequestException as e:
+        print(f"Failed to send Telegram message: {e}")
+        return False
 
 today = date.today()
 tomorrow = today + timedelta(days=1)
@@ -96,10 +101,17 @@ if target_link:
         
         if content_div:
             powercut_info = content_div.get_text(separator='\n').strip()
+            message = f"POWER CUT SCHEDULE\n\n{powercut_info}\n\nSource: {target_link}"
+            
+            # Send to Telegram
+            if send_telegram_message(message):
+                print("Successfully sent power cut schedule to Telegram!")
+            else:
+                print("Failed to send message to Telegram")
+                
+            # print to console
             print("\n--- POWER CUT SCHEDULE ---")
             print(powercut_info)
-            # Send power cut info to Telegram
-            send_telegram_message(f"<b>Power Cut Schedule:</b>\n{powercut_info}")
         else:
             print("Could not find the content div on the detail page.")
 
@@ -107,4 +119,6 @@ if target_link:
         print(f"Error occurred while fetching detail page: {e}")
 
 else:
-    print("\nNo power cut schedule link was found for today or tomorrow.")
+    message = "No power cut schedule found for today or tomorrow."
+    send_telegram_message(message)
+    print(message)
