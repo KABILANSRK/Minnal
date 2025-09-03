@@ -80,10 +80,9 @@ for card in news_cards:
             link_text = link_tag.get_text()
 
             is_power_cut_link = "power shutdown" in link_text.lower() or "power cut" in link_text.lower()
-            is_for_today = today_str in link_text
             is_for_tomorrow = tomorrow_str in link_text
 
-            if is_power_cut_link and (is_for_today or is_for_tomorrow):
+            if is_power_cut_link and (is_for_tomorrow):
                 print(f"Match Found! -> {link_text.strip()}")
 
                 relative_path = link_tag['href']
