@@ -27,10 +27,10 @@ The Minimum Viable Product is focused on delivering a reliable, automated notifi
     -   [x] Create a `requirements.txt` file for dependencies.
     -   [x] Set up a GitHub Actions workflow to run the scraper script on a daily schedule.
 
--   [ ] **V0.4: Public Web Interface**
-    -   [ ] Build a minimal web application using Flask or FastAPI.
-    -   [ ] Create a single, clean webpage that displays the latest power cut information.
-    -   [ ] Deploy the application to a free hosting service (e.g., Render).
+-   [x] **V0.4: Public Web Interface**
+    -   [x] Build a minimal web application using Flask or FastAPI.
+    -   [x] Create a single, clean webpage that displays the latest power cut information.
+    -   [x] Deploy the application to a free hosting service (e.g., Render).
 
 ---
 
