@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 from scrapper import data_fetch
 import logging
+import os
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

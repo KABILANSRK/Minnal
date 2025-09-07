@@ -46,7 +46,7 @@ def data_fetch():
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }
 
-    print(f"Fetching data from {index_url}...")
+    print(f"Fetching data from {index_url}")
 
     try:
         response = requests.get(index_url, headers=headers)
