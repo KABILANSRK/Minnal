@@ -10,26 +10,38 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
+@app.route('/')
+def index():
+    return jsonify({
+        'status': 'alive',
+        'message': 'Flask backend is running'
+    })
+
 @app.route('/api/schedule', methods=['GET'])
 def get_schedule():
+    logger.info('Received request for /api/schedule')
     try:
+        logger.info('Attempting to fetch schedule data...')
         schedule_data = data_fetch()
         
         if schedule_data:
+            logger.info(f'Schedule data fetched successfully: {schedule_data}')
             return jsonify({
                 'success': True,
                 'data': schedule_data
             })
         else:
+            logger.warning('No schedule data found')
             return jsonify({
                 'success': False,
                 'message': 'No power cut schedule found for today.'
             }), 404
             
     except Exception as e:
+        logger.error(f'Error occurred: {str(e)}')
         return jsonify({
             'success': False,
-            'message': 'Internal server error'
+            'message': f'Internal server error: {str(e)}'
         }), 500
 
 
