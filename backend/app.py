@@ -3,6 +3,7 @@ from flask_cors import CORS
 from scrapper import data_fetch
 import logging
 import os
+import requests
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -37,11 +38,17 @@ def get_schedule():
                 'message': 'No power cut schedule found for today.'
             }), 404
             
-    except Exception as e:
-        logger.error(f'Error occurred: {str(e)}')
+    except requests.RequestException as e:
+        logger.error(f'Network error occurred: {str(e)}')
         return jsonify({
             'success': False,
-            'message': f'Internal server error: {str(e)}'
+            'message': 'Failed to fetch data from the source website'
+        }), 503
+    except Exception as e:
+        logger.error(f'Unexpected error occurred: {str(e)}', exc_info=True)
+        return jsonify({
+            'success': False,
+            'message': 'Internal server error'
         }), 500
 
 
